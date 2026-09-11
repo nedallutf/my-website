@@ -3,30 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قناة عربي | الصفحة الرسمية</title>
+    <title>Arabi | الصفحة الرسمية</title>
     <!-- FontAwesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
+    <!-- Google Arabic & Modern Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --bg-dark: #121417;
-            --card-bg: rgba(28, 32, 38, 0.85);
-            --card-hover-bg: rgba(38, 44, 52, 0.95);
+            --card-bg: rgba(28, 32, 38, 0.78);
+            --card-hover-bg: rgba(38, 44, 52, 0.92);
+            --primary-gray: #2d3238;
             --text-main: #ffffff;
             --text-sub: #b0b8c1;
             --border-color: rgba(255, 255, 255, 0.12);
-            --accent-color: #FF0000;
+            --youtube-color: #FF0000;
+            --instagram-color: #E1306C;
+            --tiktok-color: #00f2fe;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Tajawal', 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -36,92 +40,300 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 30px 15px;
+            position: relative;
+            overflow-x: hidden;
+            padding: 25px 15px;
         }
 
+        /* Transparent Character Watermark Background */
+        .bg-watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            max-width: 600px;
+            height: 100%;
+            background-image: url('profile.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            opacity: 0.12;
+            z-index: 0;
+            pointer-events: none;
+            filter: grayscale(30%);
+        }
+
+        /* Container */
         .container {
             width: 100%;
-            max-width: 450px;
-            text-align: center;
-            background: var(--card-bg);
-            padding: 35px 25px;
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            backdrop-filter: blur(10px);
+            max-width: 480px;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* تصميم صورة البروفايل */
-        .profile-img {
-            width: 120px;
-            height: 120px;
+        /* Header / Profile Section */
+        .profile-card {
+            text-align: center;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        .avatar-wrapper {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 15px auto;
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid var(--accent-color);
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
-            margin-bottom: 15px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
         }
 
-        h1 {
-            font-size: 24px;
+        .profile-name {
+            font-size: 1.5rem;
             font-weight: 800;
-            margin-bottom: 8px;
+            color: var(--text-main);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
-        p.bio {
+        .verified-badge {
+            color: #3897f0;
+            font-size: 1.1rem;
+        }
+
+        .profile-bio {
+            font-size: 0.95rem;
             color: var(--text-sub);
-            font-size: 15px;
-            margin-bottom: 25px;
+            font-weight: 400;
+            line-height: 1.5;
+            max-width: 320px;
+            margin: 0 auto;
         }
 
-        .links {
+        /* Links List */
+        .links-container {
+            width: 100%;
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
 
-        .link-btn {
+        .link-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 14px 20px;
+            border-radius: 16px;
+            color: var(--text-main);
+            text-decoration: none;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-item:hover {
+            background: var(--card-hover-bg);
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .link-item:active {
+            transform: translateY(-1px);
+        }
+
+        .link-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .icon-box {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            background: var(--card-hover-bg);
-            color: var(--text-main);
-            text-decoration: none;
-            padding: 14px 20px;
-            border-radius: 12px;
+            font-size: 1.3rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: transform 0.2s ease;
+        }
+
+        .link-item:hover .icon-box {
+            transform: scale(1.05);
+        }
+
+        /* Platform Specific Colors for Icons */
+        .youtube .icon-box { color: var(--youtube-color); background: rgba(255, 0, 0, 0.1); }
+        .instagram .icon-box { color: var(--instagram-color); background: rgba(225, 48, 108, 0.1); }
+        .tiktok .icon-box { color: var(--tiktok-color); background: rgba(0, 242, 254, 0.1); }
+        .store .icon-box { color: #2ecc71; background: rgba(46, 204, 113, 0.1); }
+
+        .link-text {
+            display: flex;
+            flex-direction: column;
+            text-align: right;
+        }
+
+        .link-title {
+            font-size: 1rem;
             font-weight: 700;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
         }
 
-        .link-btn:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent-color);
-            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.2);
+        .link-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-sub);
+            margin-top: 2px;
         }
 
-        .link-btn i {
-            font-size: 20px;
+        .arrow-icon {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            opacity: 0.6;
+            transition: all 0.2s ease;
+        }
+
+        .link-item:hover .arrow-icon {
+            opacity: 1;
+            transform: translateX(-4px);
+            color: var(--text-main);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 35px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            opacity: 0.6;
+        }
+
+        /* Animation Entrance */
+        .animate-up {
+            animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- Transparent Character Watermark -->
+    <div class="bg-watermark"></div>
+
     <div class="container">
-        <!-- هنا مكان اسم ملف الصورة التي رفعتها -->
-        <img src="profile.jpg" alt="قناة عربي" class="profile-img">
+        
+        <!-- Profile Header -->
+        <header class="profile-card animate-up delay-1">
+            <div class="avatar-wrapper">
+                <img src="profile.jpg" alt="عربي" class="avatar-img">
+            </div>
+            <h1 class="profile-name">
+                عربي | Arabi
+                <i class="fa-solid fa-circle-check verified-badge"></i>
+            </h1>
+            <p class="profile-bio">صانع محتوى | قصص وحكايات غريبة ومشوقة من حول العالم 🎬✨</p>
+        </header>
 
-        <h1>قناة عربي</h1>
-        <p class="bio">مرحباً بكم في الصفحة الرسمية للقناة</p>
-
-        <div class="links">
-            <a href="https://youtube.com" target="_blank" class="link-btn">
-                <i class="fab fa-youtube" style="color: #FF0000;"></i>
-                قناة اليوتيوب
+        <!-- Links Section -->
+        <main class="links-container">
+            
+            <!-- YouTube Link -->
+            <a href="https://youtube.com" target="_blank" class="link-item youtube animate-up delay-2">
+                <div class="link-content">
+                    <div class="icon-box">
+                        <i class="fa-brands fa-youtube"></i>
+                    </div>
+                    <div class="link-text">
+                        <span class="link-title">قناة اليوتيوب</span>
+                        <span class="link-subtitle">شاهد أحدث الفيديوهات والقصص</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-left arrow-icon"></i>
             </a>
-        </div>
+
+            <!-- TikTok Link -->
+            <a href="https://tiktok.com" target="_blank" class="link-item tiktok animate-up delay-3">
+                <div class="link-content">
+                    <div class="icon-box">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </div>
+                    <div class="link-text">
+                        <span class="link-title">حساب التيك توك</span>
+                        <span class="link-subtitle">مقاطع قصيرة يومية ومقاطع حصرية</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-left arrow-icon"></i>
+            </a>
+
+            <!-- Instagram Link -->
+            <a href="https://instagram.com" target="_blank" class="link-item instagram animate-up delay-4">
+                <div class="link-content">
+                    <div class="icon-box">
+                        <i class="fa-brands fa-instagram"></i>
+                    </div>
+                    <div class="link-text">
+                        <span class="link-title">إنستغرام</span>
+                        <span class="link-subtitle">كواليس، صور، وتواصل مباشر</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-left arrow-icon"></i>
+            </a>
+
+            <!-- Store / Contact Link -->
+            <a href="#" class="link-item store animate-up delay-5">
+                <div class="link-content">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <div class="link-text">
+                        <span class="link-title">التواصل والإعلانات</span>
+                        <span class="link-subtitle">للتواصل التجاري والأعمال</span>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-left arrow-icon"></i>
+            </a>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer animate-up delay-5">
+            <p>© 2026 Arabi. جميع الحقوق محفوظة.</p>
+        </footer>
+
     </div>
 
 </body>
+</html>
 </html>
